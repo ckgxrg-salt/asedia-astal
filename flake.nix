@@ -1,14 +1,14 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    ags = {
-      url = "github:aylur/ags";
-      inputs.astal.follows = "astal";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     astal = {
       url = "github:aylur/astal";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    ags = {
+      url = "github:aylur/ags/v3";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.astal.follows = "astal";
     };
   };
 
@@ -25,34 +25,49 @@
       };
     in
     {
-      packages.${system} = rec {
-        default = asedia-astal;
-        asedia-astal = import ./package.nix { inherit pkgs ags; };
-        logout = import ./logout/logout-package.nix { inherit pkgs ags; };
+      packages.${system}.default = pkgs.stdenv.mkDerivation {
+        pname = "asedia-astal";
+        version = "0.1.0";
+
+        src = ./.;
+
+        nativeBuildInputs = with pkgs; [
+          wrapGAppsHook
+          gobject-introspection
+          ags.packages.${system}.default
+        ];
+
+        buildInputs = with pkgs; [
+          glib
+          gjs
+          pkgs.astal.io
+          pkgs.astal.astal4
+          pkgs.astal.hyprland
+        ];
+
+        installPhase = ''
+          ags bundle logout/app.ts $out/bin/asedia-astal
+        '';
+
+        preFixup = ''
+          gappsWrapperArgs+=(
+            --prefix PATH : ${
+              pkgs.lib.makeBinPath ([
+              ])
+            }
+          )
+        '';
       };
 
       devShells.${system}.default = pkgs.mkShell {
         name = "astal-dev";
 
-        buildInputs = with ags.packages.${system}; [
-          (ags.packages.${system}.default.override {
-            extraPackages = with ags.packages.${system}; [
-              astal4
-              io
-              apps
-              hyprland
-              tray
-              mpris
-              wireplumber
-              battery
-              pkgs.libgtop
-            ];
-          })
-          hyprland
-          mpris
-          battery
+        buildInputs = [
+          ags.packages.${system}.agsFull
 
           pkgs.stylelint
+          pkgs.prettier
+          pkgs.eslint
           pkgs.nixfmt-rfc-style
           pkgs.deadnix
         ];
