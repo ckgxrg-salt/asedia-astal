@@ -1,8 +1,10 @@
 import Mpris from "gi://AstalMpris";
-import { Variable } from "astal";
+import { createState } from "ags";
 
 export const mpris = Mpris.get_default();
-export const activePlayer = Variable<Mpris.Player | undefined>(undefined);
+export const [activePlayer, setActivePlayer] = createState<
+  Mpris.Player | undefined
+>(undefined);
 
 // Map some player names
 export function mapPlayers(original: Mpris.Player | undefined) {
@@ -16,7 +18,7 @@ export function mapPlayers(original: Mpris.Player | undefined) {
     case undefined:
       return "MPRIS";
     default:
-      return original?.get_identity();
+      return original!.get_identity();
   }
 }
 export function mapPlayersIcon(original: Mpris.Player | undefined) {
@@ -39,7 +41,7 @@ export function mapPlayersIcon(original: Mpris.Player | undefined) {
 export function mprisInit() {
   mpris.connect("player-added", (_, addedPlayer) => {
     if (activePlayer.get() === undefined) {
-      activePlayer.set(addedPlayer);
+      setActivePlayer(addedPlayer);
     }
   });
   mpris.connect("player-closed", (_, closedPlayer) => {
@@ -47,17 +49,18 @@ export function mprisInit() {
       mpris.get_players().length === 1 &&
       closedPlayer.busName === mpris.get_players()[0]?.busName
     ) {
-      return activePlayer.set(undefined);
+      setActivePlayer(undefined);
+      return;
     }
 
     if (closedPlayer.busName === activePlayer.get()?.busName) {
       const nextPlayer = mpris
         .get_players()
         .find((player) => player.busName !== closedPlayer.busName);
-      activePlayer.set(nextPlayer);
+      setActivePlayer(nextPlayer);
     }
   });
-  activePlayer.set(
+  setActivePlayer(
     mpris.get_players().find((player) => player.get_can_play()) || undefined,
   );
 }
@@ -67,18 +70,18 @@ export function nextPlayer() {
   let list = mpris.get_players().filter((player) => player.get_can_play());
   let index = list.findIndex((player) => player === activePlayer.get());
   if (index === list.length - 1) {
-    activePlayer.set(list[0]);
+    setActivePlayer(list[0]);
   } else {
-    activePlayer.set(list[index + 1]);
+    setActivePlayer(list[index + 1]);
   }
 }
 export function prevPlayer() {
   let list = mpris.get_players().filter((player) => player.get_can_play());
   let index = list.findIndex((player) => player === activePlayer.get());
   if (index === 0) {
-    activePlayer.set(list[list.length - 1]);
+    setActivePlayer(list[list.length - 1]);
   } else {
-    activePlayer.set(list[index - 1]);
+    setActivePlayer(list[index - 1]);
   }
 }
 
