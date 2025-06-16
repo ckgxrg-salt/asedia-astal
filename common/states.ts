@@ -1,3 +1,4 @@
+// Global states
 import { createState } from "ags";
 
 // Whether to inhibit screen locker

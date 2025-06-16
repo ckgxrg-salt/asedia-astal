@@ -63,13 +63,19 @@
         name = "astal-dev";
 
         buildInputs = [
-          ags.packages.${system}.agsFull
+          (ags.packages.${system}.agsFull.override {
+            extraPackages = [
+              pkgs.libgtop
+            ];
+          })
+        ];
 
-          pkgs.stylelint
-          pkgs.prettier
-          pkgs.eslint
-          pkgs.nixfmt-rfc-style
-          pkgs.deadnix
+        nativeBuildInputs = with pkgs; [
+          stylelint
+          prettier
+          eslint
+          nixfmt-rfc-style
+          deadnix
         ];
       };
 
