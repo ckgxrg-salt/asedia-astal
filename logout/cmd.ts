@@ -1,8 +1,8 @@
 import { createState } from "ags";
 import app from "ags/gtk4/app";
-import Hyprland from "gi://AstalHyprland";
+import AstalHyprland from "gi://AstalHyprland";
 
-const hypr = Hyprland.get_default();
+const hypr = AstalHyprland.get_default();
 
 export const [confirm, setConfirm] = createState("");
 

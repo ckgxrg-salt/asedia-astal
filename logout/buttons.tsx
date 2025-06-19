@@ -4,12 +4,19 @@ import { confirm, Cmd, handleCmd } from "./cmd";
 
 export default function Buttons() {
   return (
-    <box orientation={1} valign={Gtk.Align.CENTER} halign={Gtk.Align.CENTER}>
-      <box class="MenuContainerUpper" halign={Gtk.Align.CENTER}>
+    <box
+      orientation={1}
+      valign={Gtk.Align.CENTER}
+      vexpand
+      halign={Gtk.Align.CENTER}
+      hexpand
+    >
+      <box halign={Gtk.Align.CENTER}>
         <Shutdown />
         <Reboot />
       </box>
       <Focused />
+      <Gtk.Separator />
       <box halign={Gtk.Align.CENTER}>
         <Lock />
         <Logout />

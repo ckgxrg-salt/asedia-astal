@@ -1,13 +1,19 @@
 import app from "ags/gtk4/app";
-import { Astal, Gdk, Gtk } from "ags/gtk4";
+import Gtk from "gi://Gtk?version=4.0";
+import Gdk from "gi://Gdk?version=4.0";
+import Astal from "gi://Astal?version=4.0";
 
 import { confirm, setConfirm, handleCmd, Cmd } from "./cmd";
 import Buttons from "./buttons";
 
 export const { TOP, LEFT, RIGHT, BOTTOM } = Astal.WindowAnchor;
 export function Panel() {
+  let win: Astal.Window;
+  let contentbox: Gtk.Box;
+
   return (
     <window
+      $={(self) => (win = self)}
       visible
       application={app}
       name="logout-panel"
@@ -20,26 +26,13 @@ export function Panel() {
       keymode={Astal.Keymode.EXCLUSIVE}
     >
       <Gtk.EventControllerKey
-        $pressed={(_, keyval) => handleKeyboard(keyval)}
+        $key-pressed={(_, keyval) => handleKeyboard(keyval)}
       />
-      <box>
-        <Placeholder />
-        <box orientation={1}>
-          <Placeholder />
-          <Buttons />
-          <Placeholder />
-        </box>
-        <Placeholder />
+      <Gtk.GestureClick $released={deselectOrQuit} />
+      <box $={(self) => (contentbox = self)}>
+        <Buttons />
       </box>
     </window>
-  );
-}
-
-function Placeholder() {
-  return (
-    <box vexpand hexpand>
-      <Gtk.GestureClick $released={deselectOrQuit} />
-    </box>
   );
 }
 
