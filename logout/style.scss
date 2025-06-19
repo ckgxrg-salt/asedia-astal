@@ -2,13 +2,7 @@ $bg: #{"@theme_bg_color"};
 $unfocused-border: #{"@unfocused_borders"};
 $border: #{"@borders"};
 $button-bg: #{"@button_bg"};
-
-// tokyo-night-storm
-$base0B: #9ECE6A;
-$base0C: #B4F9F8;
-$base0D: #2AC3DE;
-$base0E: #BB9AF7;
-$base0F: #F7768E;
+$accent-bg: #{"@accent_bg_color"};
 
 .Panel {
   background-color: $bg;
@@ -34,17 +28,17 @@ button {
   border: solid $border 10px;
 }
 .Focused.Shutdown {
-  background-color: $base0F;
+  background-color: $accent-bg;
 }
-.Focused.Reboot{
-  background-color: $base0E;
+.Focused.Reboot {
+  background-color: $accent-bg;
 }
 .Focused.Lock {
-  background-color: $base0D;
+  background-color: $accent-bg;
 }
 .Focused.Logout {
-  background-color: $base0C;
+  background-color: $accent-bg;
 }
 .Focused.Sleep {
-  background-color: $base0B;
+  background-color: $accent-bg;
 }
