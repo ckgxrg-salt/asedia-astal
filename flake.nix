@@ -63,11 +63,11 @@
         name = "astal-dev";
 
         buildInputs = [
-          (ags.packages.${system}.agsFull.override {
-            extraPackages = [
+          (ags.packages.${system}.agsFull.override (prev: {
+            extraPackages = prev.extraPackages ++ [
               pkgs.libgtop
             ];
-          })
+          }))
         ];
 
         nativeBuildInputs = with pkgs; [
