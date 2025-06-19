@@ -19,7 +19,7 @@ export function Panel() {
       name="logout-panel"
       class="Panel"
       monitor={0}
-      exclusivity={Astal.Exclusivity.EXCLUSIVE}
+      exclusivity={Astal.Exclusivity.IGNORE}
       namespace="astal-logout"
       layer={Astal.Layer.OVERLAY}
       anchor={TOP | LEFT | RIGHT | BOTTOM}
