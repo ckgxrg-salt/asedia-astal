@@ -18,8 +18,10 @@ export function Panel() {
       layer={Astal.Layer.OVERLAY}
       anchor={TOP | LEFT | RIGHT | BOTTOM}
       keymode={Astal.Keymode.EXCLUSIVE}
-      $={(self) => self.add_controller(keys)}
     >
+      <Gtk.EventControllerKey
+        $pressed={(_, keyval) => handleKeyboard(keyval)}
+      />
       <box>
         <Placeholder />
         <box orientation={1}>
@@ -35,18 +37,9 @@ export function Panel() {
 
 function Placeholder() {
   return (
-    <box
-      vexpand
-      hexpand
-      $={(self) => {
-        let clickCtrl = Gtk.GestureClick.new();
-        clickCtrl.connect("released", (self) => {
-          self.set_state(Gtk.EventSequenceState.CLAIMED);
-          deselectOrQuit();
-        });
-        self.add_controller(clickCtrl);
-      }}
-    />
+    <box vexpand hexpand>
+      <Gtk.GestureClick $released={deselectOrQuit} />
+    </box>
   );
 }
 
@@ -58,8 +51,6 @@ function deselectOrQuit() {
   }
 }
 
-const keys = Gtk.EventControllerKey.new();
-keys.connect("key-pressed", (_, keyval) => handleKeyboard(keyval));
 function handleKeyboard(keyval: number) {
   switch (keyval) {
     case Gdk.KEY_Escape: {
