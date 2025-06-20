@@ -1,0 +1,153 @@
+$bg: #{"@theme_bg_color"};
+$fg: #{"@theme_fg_color"};
+$accent-bg: #{"@accent_bg_color"};
+$accent-fg: #{"@accent_fg_color"};
+
+.Avatar {
+  background-color: $bg;
+  border-radius: 12px;
+
+  .AvatarImage {
+    background-size: 240px 240px;
+    border-radius: 128px;
+  }
+}
+
+.Coffee {
+  font-size: 16px;
+  background-color: $bg;
+  border-radius: 25px;
+}
+.Coffee.Deactivated {
+  color: $fg;
+}
+.Coffee.Activated {
+  color: $accent-fg;
+}
+
+.Calendar {
+  background-color: $bg;
+  border-radius: 12px;
+}
+
+.MediaButton {
+  font-size: 96px;
+  background-color: $bg;
+  border-radius: 12px;
+}
+.Media {
+  background-color: $bg;
+  border-radius: 12px;
+
+  .NotFound {
+    border-top-width: 0;
+    border-radius: 12px;
+  }
+  .MediaPlayer {
+    border-top-width: 0;
+    border-radius: 12px;
+
+    .CoverArt {
+      margin: 10px 10px 10px 10px;
+      background-color: $accent-bg;
+      background-size: cover;
+    }
+    .Progress {
+      margin: 10px 10px 0 10px;
+
+      trough {
+        min-height: 50px;
+        border-radius: 14px;
+      }
+      highlight {
+        all: unset;
+        border-radius: 14px;
+        background-color: $accent-bg;
+      }
+    }
+    .Actions {
+      margin: 10px 10px 10px 10px;
+    }
+  }
+}
+
+.Monitor {
+  background-color: $bg;
+  border-radius: 12px;
+  padding-top: 30px;
+
+  icon {
+    font-size: 36px;
+    margin: 20px;
+    margin-top: 22px;
+    margin-right: unset;
+  }
+  slider {
+    all: unset;
+  }
+  trough {
+    all: unset;
+    min-width: 200px;
+    min-height: 40px;
+    margin: 20px;
+    border-radius: 12px;
+    background-color: $bg;
+  }
+  highlight {
+    all: unset;
+    border-radius: 12px;
+  }
+  .CpuSlider highlight {
+    background-color: $bg;
+  }
+  .MemorySlider highlight {
+    background-color: $bg;
+  }
+  .BatteryLow highlight {
+    background-color: $bg;
+  }
+  .BatteryCrit highlight {
+    background-color: $bg;
+  }
+  .BatteryCharging highlight {
+    background-color: $bg;
+  }
+  .Battery highlight {
+    background-color: $bg;
+  }
+}
+
+.QuoteContainer {
+  background-color: $bg;
+  border-radius: 12px;
+
+  .QuoteButton {
+    font-size: 36px;
+    padding: 10px;
+  }
+}
+
+.TrayButton {
+  font-size: 96px;
+  background-color: $bg;
+  border-radius: 12px;
+}
+.Tray {
+  background-color: $bg;
+  border-radius: 12px;
+  padding: 20px;
+
+  button {
+    background-color: $bg;
+  }
+}
+
+.WeatherButton {
+  font-size: 96px;
+  background-color: $bg;
+  border-radius: 12px;
+}
+.Weather {
+  background-color: $bg;
+  border-radius: 12px;
+}

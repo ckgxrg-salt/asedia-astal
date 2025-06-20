@@ -71,7 +71,6 @@
         ];
 
         nativeBuildInputs = with pkgs; [
-          stylelint
           prettier
           eslint
           nixfmt-rfc-style

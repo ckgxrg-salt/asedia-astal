@@ -1,7 +1,11 @@
 import app from "ags/gtk4/app";
-import style from "./style.scss";
+
+import Dashboard from "./dashboard/dashboard";
+import dashboardStyle from "./dashboard/style.scss";
 
 app.start({
-  css: style,
-  main() {},
+  css: dashboardStyle,
+  main() {
+    Dashboard();
+  },
 });
