@@ -13,6 +13,7 @@ export default function Calendar() {
       heightRequest={320}
     >
       <Clock />
+      <Gtk.Separator />
       <Today />
     </box>
   );

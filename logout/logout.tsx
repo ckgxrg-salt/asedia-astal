@@ -13,6 +13,7 @@ export function Panel() {
 
   return (
     <window
+      layer={Astal.Layer.OVERLAY}
       $={(self) => (win = self)}
       visible
       application={app}
@@ -21,14 +22,13 @@ export function Panel() {
       monitor={0}
       exclusivity={Astal.Exclusivity.IGNORE}
       namespace="astal-logout"
-      layer={Astal.Layer.OVERLAY}
       anchor={TOP | LEFT | RIGHT | BOTTOM}
       keymode={Astal.Keymode.EXCLUSIVE}
     >
       <Gtk.EventControllerKey
-        $key-pressed={(_, keyval) => handleKeyboard(keyval)}
+        onKeyPressed={(_, keyval) => handleKeyboard(keyval)}
       />
-      <Gtk.GestureClick $released={deselectOrQuit} />
+      <Gtk.GestureClick onReleased={deselectOrQuit} />
       <box $={(self) => (contentbox = self)}>
         <Buttons />
       </box>

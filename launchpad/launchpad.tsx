@@ -28,7 +28,7 @@ function AppButton({ app }: { app: AstalApps.Application | undefined }) {
       class="AppButton"
       widthRequest={415}
       heightRequest={250}
-      $clicked={() => launch(app)}
+      onClicked={() => launch(app)}
     >
       <box spacing={15}>
         <image iconName={app.iconName} />
@@ -97,8 +97,8 @@ export function Launchpad() {
       exclusivity={Astal.Exclusivity.IGNORE}
       keymode={Astal.Keymode.EXCLUSIVE}
     >
-      <Gtk.EventControllerKey $key-pressed={onKey} />
-      <Gtk.GestureClick $released={onClick} />
+      <Gtk.EventControllerKey onKeyPressed={onKey} />
+      <Gtk.GestureClick onReleased={onClick} />
       <box
         $={(ref) => (contentbox = ref)}
         valign={Gtk.Align.CENTER}
@@ -107,9 +107,9 @@ export function Launchpad() {
       >
         <entry
           $={(self) => (searchentry = self)}
-          $$text={({ text }) => setList(generateList(text))}
+          onNotifyText={({ text }) => setList(generateList(text))}
           placeholderText="Search..."
-          $activate={() => launch(list.get()[0][0])}
+          onActivate={() => launch(list.get()[0][0])}
         />
         <Gtk.Separator />
         <scrolledwindow

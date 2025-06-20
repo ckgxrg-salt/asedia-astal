@@ -19,7 +19,7 @@ export default function Media() {
         visible={bottom((v) => v != 0)}
         widthRequest={260}
         heightRequest={260}
-        $clicked={() => setBottom(0)}
+        onClicked={() => setBottom(0)}
       >
         <image iconName="audio-radio" />
       </button>
@@ -30,7 +30,8 @@ export default function Media() {
         widthRequest={760}
         heightRequest={260}
       >
-        {Switchers()}
+        <Switchers />
+        <Gtk.Separator />
         <With value={activePlayer}>
           {(v) => {
             if (v === undefined) {
@@ -52,14 +53,14 @@ export default function Media() {
 function Switchers() {
   return (
     <centerbox class="Switchers">
-      <button tooltipText="Previous Player" $clicked={() => prevPlayer()}>
+      <button tooltipText="Previous Player" onClicked={() => prevPlayer()}>
         <image iconName="media-skip-backward-symbolic" />
       </button>
       <label
         widthRequest={300}
         label={activePlayer((player) => mapPlayers(player))}
       />
-      <button tooltipText="Next Player" $clicked={() => nextPlayer()}>
+      <button tooltipText="Next Player" onClicked={() => nextPlayer()}>
         <image iconName="media-skip-forward-symbolic" />
       </button>
     </centerbox>
@@ -70,18 +71,13 @@ function PlayerControl({ player }: { player: Mpris.Player }) {
   const { START, CENTER, END } = Gtk.Align;
   const title = createBinding(player, "title");
   const artist = createBinding(player, "artist");
-  const coverArt = createBinding(
-    player,
-    "coverArt",
-  )((c) => `background-image: url('${c}')`);
-  const position = createBinding(
-    player,
-    "position",
-  )((p) => (player.length > 0 ? p / player.length : 0));
-  const playIcon = createBinding(
-    player,
-    "playbackStatus",
-  )((s) =>
+  const coverArt = createBinding(player, "coverArt").as(
+    (c) => `background-image: url('${c}')`,
+  );
+  const position = createBinding(player, "position").as((p) =>
+    player.length > 0 ? p / player.length : 0,
+  );
+  const playIcon = createBinding(player, "playbackStatus").as((s) =>
     s === Mpris.PlaybackStatus.PLAYING
       ? "media-playback-pause-symbolic"
       : "media-playback-start-symbolic",
@@ -113,20 +109,23 @@ function PlayerControl({ player }: { player: Mpris.Player }) {
         </box>
         <slider
           class="Progress"
-          visible={createBinding(player, "length")((l) => l > 0)}
-          $dragged={({ value }) => (player.position = value * player.length)}
+          visible={createBinding(player, "length").as((l) => l > 0)}
+          onChangeValue={(_, __, value) => {
+            player.position = value * player.length;
+            return true;
+          }}
           value={position}
         />
         <centerbox class="Actions" widthRequest={400} heightRequest={50}>
           <label
             class="Position"
             halign={START}
-            visible={createBinding(player, "length")((l) => l > 0)}
-            label={createBinding(player, "position")(lengthStr)}
+            visible={createBinding(player, "length").as((l) => l > 0)}
+            label={createBinding(player, "position").as(lengthStr)}
           />
           <box>
             <button
-              $clicked={() => player.previous()}
+              onClicked={() => player.previous()}
               visible={createBinding(player, "canGoPrevious")}
               widthRequest={40}
               heightRequest={30}
@@ -134,7 +133,7 @@ function PlayerControl({ player }: { player: Mpris.Player }) {
               <image iconName="media-skip-backward-symbolic" />
             </button>
             <button
-              $clicked={() => player.play_pause()}
+              onClicked={() => player.play_pause()}
               visible={createBinding(player, "canControl")}
               widthRequest={40}
               heightRequest={30}
@@ -142,7 +141,7 @@ function PlayerControl({ player }: { player: Mpris.Player }) {
               <image iconName={playIcon} />
             </button>
             <button
-              $clicked={() => player.next()}
+              onClicked={() => player.next()}
               visible={createBinding(player, "canGoNext")}
               widthRequest={40}
               heightRequest={30}
@@ -153,11 +152,10 @@ function PlayerControl({ player }: { player: Mpris.Player }) {
           <label
             class="Length"
             halign={END}
-            visible={createBinding(player, "length")((l) => l > 0)}
-            label={createBinding(
-              player,
-              "length",
-            )((l) => (l > 0 ? lengthStr(l) : "0:00"))}
+            visible={createBinding(player, "length").as((l) => l > 0)}
+            label={createBinding(player, "length").as((l) =>
+              l > 0 ? lengthStr(l) : "0:00",
+            )}
           />
         </centerbox>
       </box>

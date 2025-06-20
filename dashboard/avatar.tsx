@@ -50,7 +50,7 @@ function Coffee() {
           }
         });
       }}
-      $clicked={() => setInhibit(!inhibit.get())}
+      onClicked={() => setInhibit(!inhibit.get())}
     >
       <image />
     </button>

@@ -1,3 +1,7 @@
+import app from "ags/gtk4/app";
+import Gtk from "gi://Gtk?version=4.0";
+import Astal from "gi://Astal?version=4.0";
+
 import { weather, updateLocation } from "../common/weather";
 import { bottom, setBottom } from "../common/states";
 
@@ -9,7 +13,7 @@ export default function Weather() {
         visible={bottom((v) => v != 1)}
         widthRequest={260}
         heightRequest={260}
-        $clicked={() => setBottom(1)}
+        onClicked={() => setBottom(1)}
       >
         <image iconName="weather-clear-symbolic" />
       </button>
@@ -21,6 +25,7 @@ export default function Weather() {
         heightRequest={260}
       >
         <Location />
+        <Gtk.Separator />
         <WeatherText />
       </box>
     </box>
@@ -33,7 +38,7 @@ function Location() {
       class="LocationButton"
       widthRequest={230}
       heightRequest={80}
-      $clicked={() => {
+      onClicked={() => {
         LocationEntry();
       }}
     />
@@ -43,7 +48,7 @@ function Location() {
 function LocationEntry() {
   return (
     <window
-      application={App}
+      application={app}
       class="DashboardWeatherEntry"
       name="astal-dashboard-weatherentry"
       namespace="astal-dashboard-weatherentry"
@@ -57,9 +62,8 @@ function LocationEntry() {
         widthRequest={230}
         heightRequest={80}
         placeholderText={"New Location..."}
-        onActivate={(self) => {
+        $activate={(self) => {
           updateLocation(self.text);
-          self.get_toplevel().destroy();
         }}
       />
     </window>

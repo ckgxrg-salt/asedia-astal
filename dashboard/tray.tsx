@@ -15,7 +15,7 @@ export default function Tray() {
         visible={bottom((v) => v != 2)}
         widthRequest={260}
         heightRequest={260}
-        $clicked={() => setBottom(2)}
+        onClicked={() => setBottom(2)}
       >
         <image iconName="view-more" />
       </button>
@@ -48,25 +48,23 @@ function groupIntoRows(items: AstalTray.TrayItem[]) {
         widthRequest={760}
         heightRequest={260}
       >
-        <box heightRequest={110} class="TrayUpper">
-          {upper}
-        </box>
+        <box heightRequest={110}>{upper}</box>
+        <Gtk.Separator />
         <box heightRequest={110}>{lower}</box>
       </box>
     );
-  }
-  return (
-    <box
-      class="Tray"
-      orientation={1}
-      visible={bottom((v) => v == 2)}
-      widthRequest={760}
-      heightRequest={260}
-    >
-      <box heightRequest={110} class="TrayUpper">
-        {buttons}
+  } else {
+    return (
+      <box
+        class="Tray"
+        orientation={1}
+        visible={bottom((v) => v == 2)}
+        widthRequest={760}
+        heightRequest={260}
+      >
+        <box heightRequest={110}>{buttons}</box>
+        <box heightRequest={110}></box>
       </box>
-      <box heightRequest={110} class="TrayUpper"></box>
-    </box>
-  );
+    );
+  }
 }

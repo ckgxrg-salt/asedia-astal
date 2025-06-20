@@ -18,10 +18,11 @@ export default function Quote() {
         widthRequest={50}
         halign={Gtk.Align.END}
         tooltipText="Quotes from fortune"
-        $clicked={() => setQuote(exec("fortune"))}
+        onClicked={() => setQuote(exec("fortune"))}
       >
         <image iconName="messenger-indicator" />
       </button>
+      <Gtk.Separator />
       <label
         class="Quote"
         widthRequest={600}

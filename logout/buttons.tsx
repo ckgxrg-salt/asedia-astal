@@ -65,7 +65,7 @@ function Shutdown() {
       tooltipText="Power Off"
       widthRequest={300}
       heightRequest={350}
-      $clicked={() => handleCmd(Cmd.SHUTDOWN)}
+      onClicked={() => handleCmd(Cmd.SHUTDOWN)}
     >
       <image iconName="system-shutdown" />
     </button>
@@ -78,7 +78,7 @@ function Reboot() {
       tooltipText="Reboot"
       widthRequest={300}
       heightRequest={350}
-      $clicked={() => handleCmd(Cmd.REBOOT)}
+      onClicked={() => handleCmd(Cmd.REBOOT)}
     >
       <image iconName="system-reboot" />
     </button>
@@ -91,7 +91,7 @@ function Lock() {
       tooltipText="Lock Screen"
       widthRequest={300}
       heightRequest={350}
-      $clicked={() => handleCmd(Cmd.LOCK)}
+      onClicked={() => handleCmd(Cmd.LOCK)}
     >
       <image iconName="system-lock-screen" />
     </button>
@@ -104,7 +104,7 @@ function Logout() {
       tooltipText="Logout"
       widthRequest={300}
       heightRequest={350}
-      $clicked={() => handleCmd(Cmd.LOGOUT)}
+      onClicked={() => handleCmd(Cmd.LOGOUT)}
     >
       <image iconName="system-log-out" />
     </button>
@@ -117,7 +117,7 @@ function Sleep() {
       tooltipText="Sleep"
       widthRequest={300}
       heightRequest={350}
-      $clicked={() => handleCmd(Cmd.SLEEP)}
+      onClicked={() => handleCmd(Cmd.SLEEP)}
     >
       <image iconName="system-suspend" />
     </button>
