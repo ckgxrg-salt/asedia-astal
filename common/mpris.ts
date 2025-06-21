@@ -1,13 +1,13 @@
-import Mpris from "gi://AstalMpris";
+import AstalMpris from "gi://AstalMpris";
 import { createState } from "ags";
 
-export const mpris = Mpris.get_default();
+export const mpris = AstalMpris.get_default();
 export const [activePlayer, setActivePlayer] = createState<
-  Mpris.Player | undefined
+  AstalMpris.Player | undefined
 >(undefined);
 
 // Map some player names
-export function mapPlayers(original: Mpris.Player | undefined) {
+export function mapPlayers(original: AstalMpris.Player | undefined) {
   switch (original?.get_identity()) {
     case "MPD on localhost:6600":
       return "Music Player Daemon";
@@ -21,7 +21,7 @@ export function mapPlayers(original: Mpris.Player | undefined) {
       return original!.get_identity();
   }
 }
-export function mapPlayersIcon(original: Mpris.Player | undefined) {
+export function mapPlayersIcon(original: AstalMpris.Player | undefined) {
   switch (original?.get_identity()) {
     case "MPD on localhost:6600":
       return "mpd";

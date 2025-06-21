@@ -25,39 +25,7 @@
       };
     in
     {
-      packages.${system}.default = pkgs.stdenv.mkDerivation {
-        pname = "asedia-astal";
-        version = "0.1.0";
-
-        src = ./.;
-
-        nativeBuildInputs = with pkgs; [
-          wrapGAppsHook
-          gobject-introspection
-          ags.packages.${system}.default
-        ];
-
-        buildInputs = with pkgs; [
-          glib
-          gjs
-          pkgs.astal.io
-          pkgs.astal.astal4
-          pkgs.astal.hyprland
-        ];
-
-        installPhase = ''
-          ags bundle logout/app.ts $out/bin/asedia-astal
-        '';
-
-        preFixup = ''
-          gappsWrapperArgs+=(
-            --prefix PATH : ${
-              pkgs.lib.makeBinPath ([
-              ])
-            }
-          )
-        '';
-      };
+      packages.${system}.default = pkgs.callPackage ./package.nix { inherit ags; };
 
       devShells.${system}.default = pkgs.mkShell {
         name = "astal-dev";
