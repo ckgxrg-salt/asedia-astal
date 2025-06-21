@@ -2,15 +2,13 @@ $bg: #{"@theme_bg_color"};
 $fg: #{"@theme_fg_color"};
 $accent-bg: #{"@accent_bg_color"};
 $accent-fg: #{"@accent_fg_color"};
+$green-1: #{"@green_1"};
+$yellow-1: #{"@yellow_1"};
+$orange-1: #{"@orange_1"};
 
-.Avatar {
+.Indicators {
   background-color: $bg;
   border-radius: 12px;
-
-  .AvatarImage {
-    background-size: 240px 240px;
-    border-radius: 128px;
-  }
 }
 
 .Coffee {
@@ -98,13 +96,13 @@ $accent-fg: #{"@accent_fg_color"};
     border-radius: 12px;
   }
   .CpuSlider highlight {
-    background-color: $bg;
+    background-color: $green-1;
   }
   .MemorySlider highlight {
-    background-color: $bg;
+    background-color: $yellow-1;
   }
   .BatteryLow highlight {
-    background-color: $bg;
+    background-color: $orange-1;
   }
   .BatteryCrit highlight {
     background-color: $bg;
@@ -117,7 +115,7 @@ $accent-fg: #{"@accent_fg_color"};
   }
 }
 
-.QuoteContainer {
+.Quote {
   background-color: $bg;
   border-radius: 12px;
 
@@ -137,7 +135,7 @@ $accent-fg: #{"@accent_fg_color"};
   border-radius: 12px;
   padding: 20px;
 
-  button {
+  menubutton {
     background-color: $bg;
   }
 }

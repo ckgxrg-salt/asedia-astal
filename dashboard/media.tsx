@@ -11,7 +11,7 @@ import {
   lengthStr,
 } from "../common/mpris";
 
-export default function Media() {
+export function Media() {
   return (
     <box>
       <button

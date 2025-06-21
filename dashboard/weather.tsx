@@ -5,7 +5,7 @@ import Astal from "gi://Astal?version=4.0";
 import { weather, updateLocation } from "../common/weather";
 import { bottom, setBottom } from "../common/states";
 
-export default function Weather() {
+export function Weather() {
   return (
     <box>
       <button
@@ -62,7 +62,7 @@ function LocationEntry() {
         widthRequest={230}
         heightRequest={80}
         placeholderText={"New Location..."}
-        $activate={(self) => {
+        onActivate={(self) => {
           updateLocation(self.text);
         }}
       />

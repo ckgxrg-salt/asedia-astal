@@ -4,7 +4,7 @@ import Battery from "gi://AstalBattery";
 import Gtk from "gi://Gtk?version=4.0";
 import GTop from "gi://GTop";
 
-export default function Monitor() {
+export function Monitor() {
   return (
     <box orientation={1} class="Monitor" widthRequest={320} heightRequest={320}>
       <Bat />

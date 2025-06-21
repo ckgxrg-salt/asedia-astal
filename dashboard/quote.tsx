@@ -3,7 +3,7 @@ import Pango from "gi://Pango";
 import { createState } from "ags";
 import { exec } from "ags/process";
 
-export default function Quote() {
+export function Quote() {
   const [quote, setQuote] = createState(exec("fortune"));
 
   return (
@@ -24,7 +24,7 @@ export default function Quote() {
       </button>
       <Gtk.Separator />
       <label
-        class="Quote"
+        class="QuoteText"
         widthRequest={600}
         halign={Gtk.Align.CENTER}
         wrap

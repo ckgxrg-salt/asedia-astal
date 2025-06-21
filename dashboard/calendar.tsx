@@ -1,10 +1,11 @@
 import Gtk from "gi://Gtk?version=4.0";
 import GLib from "gi://GLib";
-import { exec } from "ags/process";
 import { interval } from "ags/time";
 import { createState } from "ags";
 
-export default function Calendar() {
+import { event } from "../common/today";
+
+export function Calendar() {
   return (
     <box
       orientation={1}
@@ -41,14 +42,6 @@ function Clock() {
   );
 }
 
-export const loadEvent = () => {
-  let str = exec(["bash", "-c", "khal list today today | tail -n +2"]);
-  if (str.length == 0) {
-    return "No Events Today =)";
-  }
-  return str;
-};
-export const [event, setEvent] = createState(loadEvent());
 function Today() {
   return (
     <box class="Today" orientation={1} widthRequest={230} heightRequest={80}>

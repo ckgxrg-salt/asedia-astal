@@ -4,7 +4,7 @@ import Gtk from "gi://Gtk?version=4.0";
 
 import { bottom, setBottom } from "../common/states";
 
-export default function Tray() {
+export function Tray() {
   const tray = AstalTray.get_default();
   const items = createBinding(tray, "items");
 
@@ -33,7 +33,7 @@ const init = (btn: Gtk.MenuButton, item: AstalTray.TrayItem) => {
 };
 function groupIntoRows(items: AstalTray.TrayItem[]) {
   let buttons = items.map((item) => (
-    <menubutton $={(self) => init(self, item)}>
+    <menubutton $={(self) => init(self, item)} widthRequest={125}>
       <image gicon={createBinding(item, "gicon")} />
     </menubutton>
   ));
@@ -48,9 +48,13 @@ function groupIntoRows(items: AstalTray.TrayItem[]) {
         widthRequest={760}
         heightRequest={260}
       >
-        <box heightRequest={110}>{upper}</box>
+        <box heightRequest={110} spacing={20}>
+          {upper}
+        </box>
         <Gtk.Separator />
-        <box heightRequest={110}>{lower}</box>
+        <box heightRequest={110} spacing={20}>
+          {lower}
+        </box>
       </box>
     );
   } else {
@@ -62,7 +66,9 @@ function groupIntoRows(items: AstalTray.TrayItem[]) {
         widthRequest={760}
         heightRequest={260}
       >
-        <box heightRequest={110}>{buttons}</box>
+        <box heightRequest={110} spacing={20}>
+          {buttons}
+        </box>
         <box heightRequest={110}></box>
       </box>
     );
