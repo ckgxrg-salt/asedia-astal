@@ -12,6 +12,7 @@ import { showDock, setShowDock } from "../common/states";
 
 const hypr = AstalHyprland.get_default();
 const apps = new AstalApps.Apps();
+const { TOP, BOTTOM, LEFT, RIGHT } = Astal.WindowAnchor;
 
 export function Dock() {
   let win: Astal.Window;
@@ -42,18 +43,25 @@ export function Dock() {
       defaultWidth={-1}
       defaultHeight={-1}
       name="dock"
+      class="DockWindow"
       monitor={0}
-      exclusivity={Astal.Exclusivity.IGNORE}
+      exclusivity={Astal.Exclusivity.NORMAL}
       namespace="astal-dock"
-      anchor={Astal.WindowAnchor.BOTTOM}
+      anchor={TOP | LEFT | RIGHT | BOTTOM}
       keymode={Astal.Keymode.EXCLUSIVE}
     >
       <Gtk.EventControllerKey onKeyPressed={onKey} />
       <Gtk.GestureClick onReleased={onClick} />
-      <box $={(self) => (contentbox = self)} class="Dock" spacing={30}>
-        <Workspaces />
-        <NewWorkspace />
-        <LaunchpadButton />
+      <box
+        $={(self) => (contentbox = self)}
+        halign={Gtk.Align.CENTER}
+        valign={Gtk.Align.END}
+      >
+        <box spacing={30} class="Dock">
+          <Workspaces />
+          <NewWorkspace />
+          <LaunchpadButton />
+        </box>
       </box>
     </window>
   );
@@ -113,15 +121,20 @@ function NewWorkspace() {
       heightRequest={150}
       onClicked={newWorkspace}
     >
-      <image iconName="list-add" />
+      <image iconName="list-add-symbolic" />
     </button>
   );
 }
 
 function LaunchpadButton() {
   return (
-    <button class="LaunchpadButton" widthRequest={150} heightRequest={150}>
-      <image iconName="activities" />
+    <button
+      class="LaunchpadButton"
+      widthRequest={150}
+      heightRequest={150}
+      onClicked={() => hypr.dispatch("exec", "astal-launchpad")}
+    >
+      <image iconName="activities-symbolic" />
     </button>
   );
 }

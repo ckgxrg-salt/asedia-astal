@@ -10,6 +10,7 @@ import { Dock } from "./dashboard/dock";
 import dashboardStyle from "./dashboard/style.scss";
 
 app.start({
+  instanceName: "astal-shell",
   css: dashboardStyle,
   main() {
     Dashboard();

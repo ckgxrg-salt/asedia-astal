@@ -4,6 +4,7 @@ import { Panel } from "./logout";
 import css from "./style.scss";
 
 app.start({
+  instanceName: "astal-logout",
   css: css,
   main() {
     Panel();
