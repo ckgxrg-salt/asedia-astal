@@ -2,19 +2,17 @@ import app from "ags/gtk4/app";
 import { For, createState } from "ags";
 import { Astal, Gtk, Gdk } from "ags/gtk4";
 import AstalApps from "gi://AstalApps";
-import AstalHyprland from "gi://AstalHyprland";
 import Graphene from "gi://Graphene";
 import Pango from "gi://Pango";
 
 import { newWorkspace } from "../common/hyprland";
 
 const { TOP, BOTTOM, LEFT, RIGHT } = Astal.WindowAnchor;
-const hypr = AstalHyprland.get_default();
 
 function launch(target?: AstalApps.Application) {
   if (target) {
     newWorkspace();
-    hypr.dispatch("exec", target.executable);
+    target.launch();
     app.quit();
   }
 }
