@@ -3,6 +3,7 @@ import { createState } from "ags";
 
 // Whether to inhibit screen locker
 export const [inhibit, setInhibit] = createState(false);
+export const [inhibitCookie, setInhibitCookie] = createState(-1);
 
 // Whether to show the dock
 export const [showDock, setShowDock] = createState(false);

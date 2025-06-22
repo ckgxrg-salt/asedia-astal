@@ -9,11 +9,26 @@ import { Quote } from "./quote";
 import { Tray } from "./tray";
 import { Media } from "./media";
 import { Weather } from "./weather";
+import { inhibit, inhibitCookie, setInhibitCookie } from "../common/states";
 
 export function Dashboard() {
   return (
     <window
       layer={Astal.Layer.BOTTOM}
+      $={(self) => {
+        inhibit.subscribe(() => {
+          if (inhibit.get()) {
+            let cookie = app.inhibit(
+              self,
+              Gtk.ApplicationInhibitFlags.IDLE,
+              "Inhibited by astal-shell",
+            );
+            setInhibitCookie(cookie);
+          } else {
+            app.uninhibit(inhibitCookie.get());
+          }
+        });
+      }}
       visible
       application={app}
       name="dashboard"
