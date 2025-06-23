@@ -8,9 +8,17 @@ export function newWorkspace() {
   if (hypr.get_focused_workspace().get_clients().length == 0) {
     return;
   }
-  let list = hypr.get_workspaces();
-  list.sort((a, b) => a.id - b.id);
-  hypr.dispatch("workspace", (list[list.length - 1].id + 1).toString());
+  let list = hypr
+    .get_workspaces()
+    .filter((a) => a.id > 0)
+    .sort((a, b) => a.id - b.id);
+  for (let current = 1; current <= list.at(-1)!.id; current++) {
+    if (!list.find((w) => w.id == current)) {
+      hypr.dispatch("workspace", current.toString());
+      return;
+    }
+  }
+  hypr.dispatch("workspace", (list.at(-1)!.id + 1).toString());
 }
 
 // Closes the app in current workspace or activate kill mode
