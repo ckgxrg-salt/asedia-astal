@@ -1,6 +1,7 @@
-import app from "ags/gtk4/app";
 import { For, createState } from "ags";
 import { Astal, Gtk, Gdk } from "ags/gtk4";
+import app from "ags/gtk4/app";
+import { exec } from "ags/process";
 import AstalApps from "gi://AstalApps";
 import Graphene from "gi://Graphene";
 import Pango from "gi://Pango";
@@ -11,6 +12,7 @@ const { TOP, BOTTOM, LEFT, RIGHT } = Astal.WindowAnchor;
 
 function launch(target?: AstalApps.Application) {
   if (target) {
+    exec("astal-shell hide-dock");
     newWorkspace();
     target.launch();
     app.quit();

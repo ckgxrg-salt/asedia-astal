@@ -78,9 +78,9 @@ function Workspaces() {
       <For each={workspaces}>
         {(w) => {
           const lastClient = createBinding(w, "lastClient").as((client) => {
-            if (client != undefined) {
-              const className = client.get_initial_class();
-              const [application] = apps.exact_query(className);
+            if (!!client) {
+              const title = client?.get_initial_title();
+              const [application] = apps.exact_query(title);
               if (!!application.iconName) {
                 return (
                   <box
@@ -93,7 +93,7 @@ function Workspaces() {
                   </box>
                 );
               }
-              return <label label={className} />;
+              return <label label={title} />;
             }
             return <label label={w.id.toString()} />;
           });

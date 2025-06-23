@@ -18,19 +18,22 @@ app.start({
   },
   requestHandler(req: string, res: (response: any) => void) {
     switch (req) {
-      case "dock":
+      case "show-dock":
         try {
           exec(["pkill", "-USR1", "wvkbd"]);
         } finally {
           setShowDock(true);
           return res("Ok");
         }
+      case "hide-dock":
+        setShowDock(false);
+        return res("Ok");
       case "reload":
         setWeather(loadWeather());
         setEvent(loadEvent());
         return res("Ok");
       default:
-        return res("Unknown command");
+        return res("Available commands: show-dock hide-dock reload");
     }
   },
   client(message: (msg: string) => string, ...args: Array<string>) {
